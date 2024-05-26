@@ -18,14 +18,13 @@ function middle(req,res,nxt){
 
 function zod_auth(req,res,nxt){
 
-
-    if(schema.safeParse(req.body).success){
-        nxt()
+    if(schema.safeParse(req.body).success==true){
+        nxt();
     }
-
-    res.json({
-        msg:'invalid input'
-    })
-
+    else{
+        res.json({
+            msg:"invalid input"
+        })
+    }
 }
 module.exports={middle,zod_auth}

@@ -9,7 +9,7 @@ const { admin }=require("../db/databaes")
 mongoose.connect("mongodb+srv://Shivam:Shivamrock@cluster0.baeqe26.mongodb.net/udemy");
 
 
-router.post('/signup',async (req, res) => {
+router.post('/signup',m.zod_auth,async (req, res) => {
 
     const user =await new admin({
 
