@@ -54,14 +54,15 @@ router.post('/courses', m.middle,async (req, res) => {
    
 });
 
-router.get('/courses', (req, res) => {
+router.get('/courses', m.middle,async (req, res) => {
+
+    let x= await courses.find();
+    res.send(x);
+
+
+
 
     
-    res.json({
-        msg:"port working"
-    })
-    
-    // Implement fetching all courses logic
 });
 
 module.exports = router;
