@@ -5,7 +5,7 @@ const router = Router();
 const { z }=require("zod");
 const mongoose=require("mongoose")
 const { admin }=require("../db/databaes")
-
+const {courses  }=require("../db/databaes")
 mongoose.connect("mongodb+srv://Shivam:Shivamrock@cluster0.baeqe26.mongodb.net/udemy");
 
 
@@ -34,14 +34,24 @@ router.post('/signup',m.zod_auth,async (req, res) => {
     
 });
 
-router.post('/courses', (req, res) => {
+router.post('/courses', m.middle,async (req, res) => {
 
-    
-    res.json({
-        msg:"port working"
+    let x=new courses(req.body);
+
+    x.save().then((
+        res.json({
+            msg: "courses added sussfully"
+        })
+    )) .catch(()=>{
+        res.json({
+            msg:"something went wrong"
+        })
     })
-    
-    // Implement course creation logic
+
+
+ 
+
+   
 });
 
 router.get('/courses', (req, res) => {
