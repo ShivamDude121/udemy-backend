@@ -23,6 +23,12 @@ const adminSchema=new mongoose.Schema({
 
 const courseSchema=new mongoose.Schema({
 
+     
+     title: String,
+     description: String,
+     imageLink: String,
+     price: Number
+
 })
 
 const user=mongoose.model("user",userSchema);
