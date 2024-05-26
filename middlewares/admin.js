@@ -1,6 +1,31 @@
+const { z }=require("zod")
+
+const schema=z.object({
+
+    username:z.string(),
+    password:z.string()
+
+})
+
+
 function middle(req,res,nxt){
 
     nxt()
 
+
+
 }
-module.exports=middle;
+
+function zod_auth(req,res,nxt){
+
+
+    if(schema.safeParse(req.body).success){
+        nxt()
+    }
+
+    res.json({
+        msg:'invalid input'
+    })
+
+}
+module.exports={middle,zod_auth}

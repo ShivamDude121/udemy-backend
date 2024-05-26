@@ -1,5 +1,5 @@
 const mongoose=require("mongoose");
-const { string } = require("zod");
+
 mongoose.connect("mongodb+srv://Shivam:Shivamrock@cluster0.baeqe26.mongodb.net/udemy");
 
 
