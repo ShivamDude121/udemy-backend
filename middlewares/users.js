@@ -1,5 +1,7 @@
 
 const { z }=require("zod");
+const jwt=require('jsonwebtoken')
+const key="shivam"
 const schema=z.object({
     username:z.string(),
     password:z.string(),
@@ -8,7 +10,8 @@ const schema=z.object({
 
 const mongoose=require("mongoose");
 mongoose.connect("mongodb+srv://Shivam:Shivamrock@cluster0.baeqe26.mongodb.net/udemy");
-const { user }=require("../db/databaes")
+const { user }=require("../db/databaes");
+
 
 
 async function middle(req,res,nxt){
@@ -46,7 +49,21 @@ function zz_auth(req,res,nxt){
 
 
 }
+
+function jwt_m(req,res,nxt){
+    let x=req.headers.auth;
+    try{
+        jwt.verify(x,key)
+        nxt()
+    }
+    catch{
+        res.json({
+            msg:'bad auth'
+        })
+    }
+}
 module.exports={
     middle,
-    zz_auth
+    zz_auth,
+    jwt_m
 };

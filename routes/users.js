@@ -41,7 +41,7 @@ router.post('/signin',m.middle,(req,res)=>{
 
 })
 
-router.get('/courses', m.middle,async (req, res) => {
+router.get('/courses', m.jwt_m,async (req, res) => {
     // Implement listing all courses logic
     
     
@@ -51,7 +51,7 @@ router.get('/courses', m.middle,async (req, res) => {
 
 });
 
-router.post('/courses/:courseId', m.middle,async (req, res) => {
+router.post('/courses/:courseId', m.jwt_m,async (req, res) => {
     
     const z=await user.findOne({
         username:req.headers.username,
@@ -78,7 +78,7 @@ router.post('/courses/:courseId', m.middle,async (req, res) => {
     // Implement course purchase logic
 });
 
-router.get('/purchasedCourses',m.middle , async (req, res) => {
+router.get('/purchasedCourses',m.jwt_m, async (req, res) => {
     // Implement fetching purchased courses logic
     const z=await user.findOne({
         username:req.headers.username,
