@@ -49,7 +49,7 @@ router.post('/signin',m.middle,(req,res)=>{
 })
 
 
-router.post('/courses', m.middle,async (req, res) => {
+router.post('/courses', m.jwt_m,async (req, res) => {
 
     let x=new courses(req.body);
 
@@ -69,7 +69,7 @@ router.post('/courses', m.middle,async (req, res) => {
    
 });
 
-router.get('/courses', m.middle,async (req, res) => {
+router.get('/courses', m.jwt_m,async (req, res) => {
 
     let x= await courses.find();
     res.send(x);

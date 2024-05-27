@@ -1,7 +1,8 @@
 const { z }=require("zod")
 const mongoose=require("mongoose")
 const { admin }=require("../db/databaes")
-
+const jwt=require('jsonwebtoken')
+const key='shivam'
 mongoose.connect("mongodb+srv://Shivam:Shivamrock@cluster0.baeqe26.mongodb.net/udemy");
 
 
@@ -46,7 +47,20 @@ function zod_auth(req,res,nxt){
         })
     }
 }
+function jwt_m(req,res,nxt){
+    let x=req.headers.auth;
+    try{
+        jwt.verify(x,key)
+        nxt()
+    }
+    catch{
+        res.json({
+            msg:'bad auth'
+        })
+    }
+}
 module.exports={
     middle,
-    zod_auth
+    zod_auth,
+    jwt_m
 }
