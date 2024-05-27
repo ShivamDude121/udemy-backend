@@ -37,11 +37,29 @@ router.get('/courses', m.middle,async (req, res) => {
 
 });
 
-router.post('/courses/:courseId', (req, res) => {
+router.post('/courses/:courseId', m.middle,async (req, res) => {
     
-    res.json({
-        msg:"port working"
+    const z=await user.findOne({
+        username:req.headers.username,
+        password:req.headers.password 
+
+    });
+
+    z.purchasedCourses.push(req.params.courseId);
+
+    z.save().then(()=>{
+        res.json({
+            msg:"courses purchased sussfully"
+        })
+    }).catch(()=>{
+        res.json({
+            msg:"something went wrong"
+        })
     })
+
+    
+
+
     
     // Implement course purchase logic
 });
