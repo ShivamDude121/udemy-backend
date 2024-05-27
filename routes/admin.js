@@ -8,7 +8,8 @@ const { admin }=require("../db/databaes")
 const {courses  }=require("../db/databaes")
 mongoose.connect("mongodb+srv://Shivam:Shivamrock@cluster0.baeqe26.mongodb.net/udemy");
 
-
+const jwt=require('jsonwebtoken');
+const JWT_KEY="shivam"
 router.post('/signup',m.zod_auth,async (req, res) => {
 
     const user =await new admin({
@@ -33,6 +34,20 @@ router.post('/signup',m.zod_auth,async (req, res) => {
     
     
 });
+router.post('/signin',m.middle,(req,res)=>{
+    
+
+    const x=req.headers.username
+
+    const key=jwt.sign(x,JWT_KEY)
+    res.json({
+
+        key
+
+    })
+
+})
+
 
 router.post('/courses', m.middle,async (req, res) => {
 

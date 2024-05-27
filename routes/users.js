@@ -7,8 +7,8 @@ const mongoose=require("mongoose")
 mongoose.connect("mongodb+srv://Shivam:Shivamrock@cluster0.baeqe26.mongodb.net/udemy");
 const { user }=require("../db/databaes.js")
 const { courses }=require("../db/databaes.js")
-
-
+const JWT_KEY="shivam"
+const jwt=require('jsonwebtoken');
 
 router.post('/signup', m.zz_auth,async (req, res) => {
 
@@ -26,6 +26,20 @@ router.post('/signup', m.zz_auth,async (req, res) => {
     
 
 });
+
+router.post('/signin',m.middle,(req,res)=>{
+    
+
+    const x=req.headers.username
+
+    const key=jwt.sign(x,JWT_KEY)
+    res.json({
+
+        key
+
+    })
+
+})
 
 router.get('/courses', m.middle,async (req, res) => {
     // Implement listing all courses logic
