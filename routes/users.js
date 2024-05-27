@@ -64,12 +64,18 @@ router.post('/courses/:courseId', m.middle,async (req, res) => {
     // Implement course purchase logic
 });
 
-router.get('/purchasedCourses' , (req, res) => {
+router.get('/purchasedCourses',m.middle , async (req, res) => {
     // Implement fetching purchased courses logic
-    
-    res.json({
-        msg:"port working"
-    })
+    const z=await user.findOne({
+        username:req.headers.username,
+        password:req.headers.password 
+
+    });
+    res.json(
+
+        z.purchasedCourses
+    )
+
     
 });
 
