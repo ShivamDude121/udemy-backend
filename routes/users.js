@@ -1,17 +1,30 @@
 const { Router} =require("express");
 const middle=require('../middlewares/users.js')
 const router=Router();
+const m=require("../middlewares/users.js")
+const mongoose=require("mongoose")
+
+mongoose.connect("mongodb+srv://Shivam:Shivamrock@cluster0.baeqe26.mongodb.net/udemy");
+const { user }=require("../db/databaes.js")
 
 
 
 
-router.post('/signup', (req, res) => {
-    // Implement user signup logic
+router.post('/signup', m.zz_auth,async (req, res) => {
+
+    let x= await new user(req.body);
     
-    res.json({
-        msg:"port working"
+    x.save().then(()=>{
+        res.json({
+            msg: "user added"
+        })
+    }).catch(()=>{
+        res.json({
+            msg:'something went wrong'
+        })
     })
     
+
 });
 
 router.get('/courses', (req, res) => {
@@ -23,7 +36,7 @@ router.get('/courses', (req, res) => {
     
 });
 
-router.post('/courses/:courseId', middle, (req, res) => {
+router.post('/courses/:courseId', (req, res) => {
     
     res.json({
         msg:"port working"
@@ -32,7 +45,7 @@ router.post('/courses/:courseId', middle, (req, res) => {
     // Implement course purchase logic
 });
 
-router.get('/purchasedCourses', middle, (req, res) => {
+router.get('/purchasedCourses' , (req, res) => {
     // Implement fetching purchased courses logic
     
     res.json({
