@@ -6,7 +6,7 @@ const mongoose=require("mongoose")
 
 mongoose.connect("mongodb+srv://Shivam:Shivamrock@cluster0.baeqe26.mongodb.net/udemy");
 const { user }=require("../db/databaes.js")
-
+const { courses }=require("../db/databaes.js")
 
 
 
@@ -27,13 +27,14 @@ router.post('/signup', m.zz_auth,async (req, res) => {
 
 });
 
-router.get('/courses', (req, res) => {
+router.get('/courses', m.middle,async (req, res) => {
     // Implement listing all courses logic
     
-    res.json({
-        msg:"port working"
-    })
     
+    let x= await courses.find();
+    res.send(x);
+
+
 });
 
 router.post('/courses/:courseId', (req, res) => {

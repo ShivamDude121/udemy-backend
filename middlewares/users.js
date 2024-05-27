@@ -6,12 +6,31 @@ const schema=z.object({
     purchasedCourses: z.array(z.string())
 })
 
+const mongoose=require("mongoose");
+mongoose.connect("mongodb+srv://Shivam:Shivamrock@cluster0.baeqe26.mongodb.net/udemy");
+const { user }=require("../db/databaes")
 
-function middle(req,res,nxt){
 
+async function middle(req,res,nxt){
 
-    nxt();
+    const z=await user.find({
+        username:req.headers.username,
+        password:req.headers.password 
+
+    })
+
+    
+
+    if (z.length){
+        nxt()
+    }
+    else{
+        res.json({
+            msg:"not a valid user"
+        })
+    }
 }
+
 
 
 function zz_auth(req,res,nxt){
